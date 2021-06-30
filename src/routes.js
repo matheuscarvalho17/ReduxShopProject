@@ -15,7 +15,7 @@ export default function Routes() {
 			<Stack.Navigator
 				screenOptions={{
 					headerShown: true,
-					cardStyle: { backgroundColor: '#E5E5E5' },
+					cardStyle: { backgroundColor: '#333039' },
 				}}
 				initialRouteName="Catalog"
 			>
@@ -36,11 +36,11 @@ export default function Routes() {
 						headerTitle: () => <Header />,
 						headerBackTitleVisible: false,
 						headerLeftContainerStyle: {
-							marginLeft: 20,
+							marginLeft: 10,
 						},
-						headerBackImage: () => {
-							<FeatherIcon name="chevron-left" size={24} color="#f3f9ff" />;
-						},
+						headerBackImage: () => (
+							<FeatherIcon name="chevron-left" size={24} color="#f3f9ff" />
+						),
 					}}
 				/>
 			</Stack.Navigator>
