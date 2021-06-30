@@ -1,6 +1,7 @@
 import { View } from 'react-native';
 import React, { useState, useMemo } from 'react';
 import formatValue from '../../utils/formatValue';
+import EmptyCart from '../../components/EmptyCart';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import {
 	Product,
@@ -24,22 +25,22 @@ import {
 
 export default function Cart() {
 	const [products, setProducts] = useState([
-		{
-			id: '1',
-			title: 'Assinatura Mensal',
-			image_url:
-				'https://res.cloudinary.com/robertosousa1/image/upload/v1594492578/dio/quarterly_subscription_yjolpc.png',
-			quantity: 2,
-			price: 50,
-		},
-		{
-			id: '2',
-			title: 'Assinatura Trimestral',
-			image_url:
-				'https://res.cloudinary.com/robertosousa1/image/upload/v1594492578/dio/quarterly_subscription_yjolpc.png',
-			quantity: 2,
-			price: 150,
-		},
+		// {
+		// 	id: '1',
+		// 	title: 'Assinatura Mensal',
+		// 	image_url:
+		// 		'https://res.cloudinary.com/robertosousa1/image/upload/v1594492578/dio/quarterly_subscription_yjolpc.png',
+		// 	quantity: 2,
+		// 	price: 50,
+		// },
+		// {
+		// 	id: '2',
+		// 	title: 'Assinatura Trimestral',
+		// 	image_url:
+		// 		'https://res.cloudinary.com/robertosousa1/image/upload/v1594492578/dio/quarterly_subscription_yjolpc.png',
+		// 	quantity: 2,
+		// 	price: 150,
+		// },
 	]);
 
 	//Quantidade de itens no carrinho
@@ -62,6 +63,7 @@ export default function Cart() {
 				<ProductList
 					data={products}
 					keyExtractor={(item) => item.id}
+					ListEmptyComponent={<EmptyCart />}
 					ListFooterComponent={<View />}
 					ListFooterComponentStyle={{
 						height: 80,
