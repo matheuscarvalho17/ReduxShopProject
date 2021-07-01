@@ -1,14 +1,15 @@
 import React from 'react';
-import { StatusBar } from 'react-native';
-import 'react-native-gesture-handler'
-
+import store from './store';
 import Routes from './routes';
+import 'react-native-gesture-handler';
+import { Provider } from 'react-redux';
+import { StatusBar } from 'react-native';
 
 const App = () => (
-	<>
-		<StatusBar barStyle="light-content" backgroundColor='#312e38' />
+	<Provider store={store}>
+		<StatusBar barStyle="light-content" backgroundColor="#312e38" />
 		<Routes />
-	</>
-)
+	</Provider>
+);
 
 export default App;
