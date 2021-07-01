@@ -3,7 +3,7 @@ import React, { useState, useMemo } from 'react';
 import formatValue from '../../utils/formatValue';
 import EmptyCart from '../../components/EmptyCart';
 import { useSelector, useDispatch } from 'react-redux';
-import * as CartActions from '../../components/EmptyCart';
+import * as CartActions from '../../store/modules/cart/actions';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import {
 	Product,
@@ -43,6 +43,21 @@ export default function Cart() {
 		return formatValue(cartAmount);
 	}, [products]);
 
+	//Adicionar quantidade de itens no carrinho
+	function increment(product) {
+		dispatch(CartActions.updateAmountRequest(product.id, product.amount + 1));
+	}
+
+	//Remover quantidade de itens do carrinho
+	function decrement(product) {
+		dispatch(CartActions.updateAmountRequest(product.id, product.amount - 1));
+	}
+
+	//Remover item do carrinho
+	function removeFromCart(id) {
+		dispatch(CartActions.removeFromCart(id));
+	}
+
 	return (
 		<Container>
 			<ProductContainer>
@@ -72,10 +87,14 @@ export default function Cart() {
 								</ProductPriceContainer>
 							</ProductTitleContainer>
 							<ActionContainer>
-								<ActionButton onPress={() => {}}>
+								<ActionButton onPress={() => increment(item)}>
 									<FeatherIcon name="plus" color="#e83f5b" size={16} />
 								</ActionButton>
-								<ActionButton onPress={() => {}}>
+								<ActionButton
+									onPress={() =>
+										item.amount > 1 ? decrement(item) : removeFromCart(item.id)
+									}
+								>
 									<FeatherIcon name="minus" color="#e83f5b" size={16} />
 								</ActionButton>
 							</ActionContainer>
