@@ -2,6 +2,8 @@ import { View } from 'react-native';
 import React, { useState, useMemo } from 'react';
 import formatValue from '../../utils/formatValue';
 import EmptyCart from '../../components/EmptyCart';
+import { useSelector, useDispatch } from 'react-redux';
+import * as CartActions from '../../components/EmptyCart';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import {
 	Product,
@@ -24,24 +26,8 @@ import {
 } from './styles';
 
 export default function Cart() {
-	const [products, setProducts] = useState([
-		// {
-		// 	id: '1',
-		// 	title: 'Assinatura Mensal',
-		// 	image_url:
-		// 		'https://res.cloudinary.com/robertosousa1/image/upload/v1594492578/dio/quarterly_subscription_yjolpc.png',
-		// 	quantity: 2,
-		// 	price: 50,
-		// },
-		// {
-		// 	id: '2',
-		// 	title: 'Assinatura Trimestral',
-		// 	image_url:
-		// 		'https://res.cloudinary.com/robertosousa1/image/upload/v1594492578/dio/quarterly_subscription_yjolpc.png',
-		// 	quantity: 2,
-		// 	price: 150,
-		// },
-	]);
+	const dispatch = useDispatch();
+	const products = useSelector(({ cart }) => cart);
 
 	//Quantidade de itens no carrinho
 	const cartSize = useMemo(() => {
@@ -51,7 +37,7 @@ export default function Cart() {
 	//Quantidade total do preço do carrinho
 	const cartTotal = useMemo(() => {
 		const cartAmount = products.reduce((accumulator, product) => {
-			const totalPrice = accumulator + product.price * product.quantity;
+			const totalPrice = accumulator + product.price * product.amount;
 			return totalPrice;
 		}, 0);
 		return formatValue(cartAmount);
@@ -78,9 +64,9 @@ export default function Cart() {
 										{formatValue(item.price)}
 									</ProductSinglePrice>
 									<TotalContainer>
-										<ProductQuantity>{`${item.quantity}x`}</ProductQuantity>
+										<ProductQuantity>{`${item.amount}x`}</ProductQuantity>
 										<ProductPrice>
-											{formatValue(item.price * item.quantity)}
+											{formatValue(item.price * item.amount)}
 										</ProductPrice>
 									</TotalContainer>
 								</ProductPriceContainer>
