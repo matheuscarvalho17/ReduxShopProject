@@ -22,13 +22,14 @@ import {
 export default function Catalog() {
 	const dispatch = useDispatch();
 	const [products, setProducts] = useState([]);
-	async function loadProducts() {
-		const { data } = await api.get('/products');
 
-		setProducts(data);
-	}
-	loadProducts();
-	useEffect(() => {}, []);
+	useEffect(() => {
+		async function loadProducts() {
+			const { data } = await api.get('/products');
+			setProducts(data);
+		}
+		loadProducts();
+	}, []);
 
 	function handlerAddToCart(id) {
 		dispatch(CartActions.addToCartRequest(id));
